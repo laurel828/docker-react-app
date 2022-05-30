@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start creating an image with dockerfile"
+  - docker build -t laurel828/docker_react_app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true laurel828/docker_react_app npm run test -- --coverage
+
+after_success:
+  - echo "Test successed"
